@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR 코드 생성기 및 스캐너</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+  </head>
+  <body>
+    <h1>송장 QR 코드 생성</h1>
+
+    <!-- 송장 정보 입력 -->
+    <h2>송장 정보 입력</h2>
+    <label>송장 번호: <input type="text" id="invoiceNumber" /></label><br />
+    <label>받는 사람: <input type="text" id="recipient" /></label><br />
+    <label>주소: <input type="text" id="address" /></label><br />
+    <button onclick="generateQRCode()">QR 코드 생성</button>
+
+    <!-- QR 코드 출력 -->
+    <h3>QR 코드:</h3>
+    <canvas id="qrcode"></canvas>
+
+    <script>
+      // QR 코드 생성 함수
+      function generateQRCode() {
+        const invoiceNumber = document.getElementById("invoiceNumber").value;
+        const recipient = document.getElementById("recipient").value;
+        const address = document.getElementById("address").value;
+
+        // 송장 정보를 URL 파라미터로 포함한 페이지 URL 생성
+        const dataUrl = `https://your-server-url.com/invoice.html?invoiceNumber=${encodeURIComponent(
+          invoiceNumber
+        )}&recipient=${encodeURIComponent(
+          recipient
+        )}&address=${encodeURIComponent(address)}`;
+
+        // QR 코드 생성
+        QRCode.toCanvas(
+          document.getElementById("qrcode"),
+          dataUrl,
+          function (error) {
+            if (error) console.error(error);
+            console.log("QR 코드 생성 완료");
+          }
+        );
+      }
+    </script>
+  </body>
+</html>

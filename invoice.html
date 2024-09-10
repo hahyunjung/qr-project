@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>송장 정보</title>
+  </head>
+  <body>
+    <h1>송장 정보</h1>
+
+    <p>송장 번호: <span id="invoiceNumber"></span></p>
+    <p>받는 사람: <span id="recipient"></span></p>
+    <p>주소: <span id="address"></span></p>
+
+    <script>
+      // URL에서 송장 정보를 가져오는 함수
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          invoiceNumber: params.get("invoiceNumber"),
+          recipient: params.get("recipient"),
+          address: params.get("address"),
+        };
+      }
+
+      // 송장 정보를 페이지에 표시
+      const queryParams = getQueryParams();
+      document.getElementById("invoiceNumber").textContent =
+        queryParams.invoiceNumber;
+      document.getElementById("recipient").textContent = queryParams.recipient;
+      document.getElementById("address").textContent = queryParams.address;
+    </script>
+  </body>
+</html>
